@@ -1,0 +1,151 @@
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 420px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.header-image {
+  width: 150px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 10px 0 5px;
+}
+
+.item-count {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+  margin-top: 2px;
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  margin-top: 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #007aff;
+  color: white;
+}
+
+button:nth-child(2) {
+  background: #34c759;
+}
+
+button:nth-child(3) {
+  background: #ff3b30;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  min-height: 32px;
+  opacity: 0;
+  color: darkgreen;
+}
+
+.result.mafia {
+  color: #ff3b30;
+}
+
+.result.citizen {
+  color: #34c759;
+}
+
+.result.independent {
+  color: #de6528;
+}
+
+.result.other {
+  color: #000;
+}
+
+.animate {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.presets {
+  margin-top: 16px;
+}
+
+.toggle-presets {
+  width: 100%;
+  background: #e5e5ea;
+  color: #000;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.preset-buttons {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.preset-buttons button {
+  background: #e5e5ea;
+  color: #000;
+  font-size: 14px;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 👈 2 columns */
+  gap: 8px;
+}
+
+.preset-grid button {
+  background: #f2f2f7;
+  color: #000;
+  font-size: 14px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Picker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Image at top -->
+    <img src="6 Skewers Logo.png" alt="Header Image" class="header-image" />
+
+    <h2 style="color:darkcyan">Mafia Role Randomizer</h2>
+	
+	<!-- Buttons to load predefined lists-->
+	<div id="presetsSection" class="presets">
+
+	  <button class="toggle-presets" onclick="togglePresets()">
+		Load X-Player Scenario ▾
+	  </button>
+
+	  <div id="presetGrid" class="preset-grid hidden">
+		<button onclick="loadPreset('list8')">8 Players</button>
+		<button onclick="loadPreset('list9')">9 Players</button>
+		<button onclick="loadPreset('list10')">10 Players</button>
+		<button onclick="loadPreset('list11')">11 Players</button>
+		<button onclick="loadPreset('list12')">12 Players</button>
+		<button onclick="loadPreset('list13')">13 Players</button>
+	  </div>
+
+	</div>
+
+
+    <!-- Editable list -->
+    <textarea
+      id="listInput"
+      placeholder="One item per line"
+      oninput="updateListFromInput()"
+    ></textarea>
+	
+	<!-- Item count (shown only initially) -->
+    <div id="itemCount" class="item-count"></div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button id="pickButton" onclick="pickRandom()">Start Picking</button>
+      <button onclick="restartApp()">Restart</button>
+      <button onclick="clearList()">Clear</button>
+    </div>
+	
+	
+
+    <!-- Result -->
+    <div id="result" class="result"></div>
+
+  </div>
+
+  <!-- ✅ SCRIPT MUST BE AT THE BOTTOM -->
+  <script src="script.js"></script>
+</body>
+</html>
