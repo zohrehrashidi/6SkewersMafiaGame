@@ -143,7 +143,7 @@ function pickRandom() {
   let remaining = getRemainingItems();
   
   // Animation reset and Remove previous color classes
-  resultEl.classList.remove("animate", "mafia", "independent", "citizen");
+  resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
   void resultEl.offsetWidth;
   
   if (remaining.length === 0) {
