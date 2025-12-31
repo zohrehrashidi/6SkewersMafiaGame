@@ -122,14 +122,16 @@ function startPicking() {
 function pickNext() {
   let remaining = getRemainingItems();
   let count = getPickCount();
-
-  if (remaining.length === 0) {
-    resultEl.innerText = "All roles picked 🎉";
-    return;
-  }
   
   // resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
   // void resultEl.offsetWidth;
+
+  if (remaining.length === 0) {
+	resultEl.classList.add("other");
+    resultEl.innerText = "All roles picked 🎉";
+	pickButton.style.display = "none";
+    return;
+  } 
 
   count++;
   const selected = remaining.shift();
@@ -172,12 +174,14 @@ function restartApp() {
   presetsSection.classList.remove("hidden");
 
   resultEl.innerText = "";
+  pickButton.style.display = "inline-block"; // show Next button again
   pickButton.innerText = "Start Picking";
   itemCountEl.innerText = `Number of Roles: ${original.length}`;
 
   inputSection.style.display = "block";
   pickSection.style.display = "none";
   presetsSection.style.display = "block"
+  
 }
 
 /***********************

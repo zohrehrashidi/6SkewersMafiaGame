@@ -59,13 +59,13 @@ button {
   color: white;
 }
 
-button:nth-child(2) {
-  background: #34c759;
-}
+/* button:nth-child(2) { */
+  /* background: #34c759; */
+/* } */
 
-button:nth-child(3) {
-  background: #ff3b30;
-}
+/* button:nth-child(3) { */
+  /* background: #ff3b30; */
+/* } */
 
 .result {
   margin-top: 20px;
@@ -81,7 +81,7 @@ button:nth-child(3) {
 }
 
 .result.citizen {
-  color: #34c759;
+  color: #41854a;
 }
 
 .result.independent {
