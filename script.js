@@ -3,69 +3,20 @@
  ***********************/
 const REMAINING_KEY = "remainingItems";
 const COUNT_KEY = "pickCount";
+const ACTIVE_KEY = "activeList";
+const ORIGINAL_KEY = "originalList";
 
 /***********************
- * default lists
+ * DEFAULT LISTS
  ***********************/
 const PRESET_LISTS = {
-  list8: [
-    "مافیا - پدرخوانده",
-  "مافیا - گروگانگیر",
-  "شهروند - نگهبان",
-  "شهروند - دکتر",
-  "شهروند - کارآگاه",
-  "شهروند - حرفه‌ای ",
-  "شهروند - شهروند ساده ۱",
-  "شهروند - شهروند ساده ۲"
-  ],
-  list9: [
-    "مافیا - پدرخوانده",
-  "مافیا - گروگانگیر",
-  "مافیا - مافیای ساده",
-  "شهروند - نگهبان",
-  "شهروند - دکتر",
-  "شهروند - کارآگاه",
-  "شهروند - حرفه‌ای ",
-  "شهروند - شهروند ساده ۱",
-  "شهروند - شهروند ساده ۲"
-  ],
-  list10: [
-    "مافیا - پدرخوانده",
-  "مافیا - گروگانگیر",
-  "مافیا - خریدار",
-  "شهروند - نگهبان",
-  "شهروند - دکتر",
-  "شهروند - کارآگاه",
-  "شهروند - حرفه‌ای ",
-  "شهروند - اوشن",
-  "شهروند - شهروند ساده ۱",
-  "شهروند - شهروند ساده ۲"
-  ],
-  list11: [
-    "مافیا - پدرخوانده",
-  "مافیا - گروگانگیر",
-  "مافیا - خریدار",
-  "شهروند - نگهبان",
-  "شهروند - دکتر",
-  "شهروند - کارآگاه",
-  "شهروند - حرفه‌ای ",
-  "شهروند - اوشن",
-  "شهروند - شهروند ساده ۱",
-  "شهروند - شهروند ساده ۲",
-  "مستقل - زودیاک"
-  ]
+  list8: ["مافیا - پدرخوانده","مافیا - گروگانگیر","شهروند - نگهبان","شهروند - دکتر","شهروند - کارآگاه","شهروند - حرفه‌ای","شهروند - ساده ۱","شهروند - ساده ۲"],
+  list9: ["مافیا - پدرخوانده","مافیا - گروگانگیر","مافیا - ساده","شهروند - نگهبان","شهروند - دکتر","شهروند - کارآگاه","شهروند - حرفه‌ای","شهروند - ساده ۱","شهروند - ساده ۲"],
+  list10: ["مافیا - پدرخوانده","مافیا - گروگانگیر","مافیا - خریدار","شهروند - نگهبان","شهروند - دکتر","شهروند - کارآگاه","شهروند - حرفه‌ای","شهروند - اوشن","شهروند - ساده ۱","شهروند - ساده ۲"],
+  list11: ["مافیا - پدرخوانده","مافیا - گروگانگیر","مافیا - خریدار","شهروند - نگهبان","شهروند - دکتر","شهروند - کارآگاه","شهروند - حرفه‌ای","شهروند - اوشن","شهروند - ساده ۱","شهروند - ساده ۲","مستقل - زودیاک"]
 };
 
-
-// 🔁 Edit this list freely — reload will always use the new version
 const DEFAULT_LIST = PRESET_LISTS['list10'];
-
-
-/***********************
- * FORCE RESET ON RELOAD
- ***********************/
-localStorage.removeItem(REMAINING_KEY);
-localStorage.removeItem(COUNT_KEY);
 
 /***********************
  * ELEMENT REFERENCES
@@ -74,140 +25,160 @@ const listInput = document.getElementById("listInput");
 const resultEl = document.getElementById("result");
 const pickButton = document.getElementById("pickButton");
 const itemCountEl = document.getElementById("itemCount");
+const inputSection = document.getElementById("inputSection");
+const pickSection = document.getElementById("pickSection");
+const presetsSection = document.getElementById("presetsSection");
 
 /***********************
  * INITIAL LOAD
  ***********************/
 listInput.value = DEFAULT_LIST.join("\n");
-localStorage.setItem(REMAINING_KEY, JSON.stringify([...DEFAULT_LIST]));
-localStorage.setItem(COUNT_KEY, "0");
+setRemainingItems([...DEFAULT_LIST]);
+setPickCount(0);
 itemCountEl.innerText = `Number of Roles: ${DEFAULT_LIST.length}`;
 
 /***********************
  * HELPERS
  ***********************/
-function loadPreset(listKey) {
-  const list = PRESET_LISTS[listKey];
-  if (!list) return;
-
-  listInput.value = list.join("\n");
-  listInput.classList.remove("hidden"); // 👈 show textarea
-
-  setRemainingItems([...list]);
-  setPickCount(0);
-
-  resultEl.innerText = "";
-  pickButton.innerText = "Start Picking";
-  itemCountEl.innerText = `Number of Roles: ${list.length}`;
-
-  // close presets
-  const grid = document.getElementById("presetGrid");
-  const toggleBtn = document.querySelector(".toggle-presets");
-  grid.classList.add("hidden");
-  toggleBtn.innerText = "Load X-Player Scenario ▾";
-}
-
-
-
-function togglePresets() {
-  const grid = document.getElementById("presetGrid");
-  const toggleBtn = document.querySelector(".toggle-presets");
-
-  grid.classList.toggle("hidden");
-
-  toggleBtn.innerText = grid.classList.contains("hidden")
-    ? "Load X-Player Scenario ▾"
-    : "Load X-Player Scenario ▴";
+function setRemainingItems(items) {
+  localStorage.setItem(REMAINING_KEY, JSON.stringify(items));
 }
 
 function getRemainingItems() {
   return JSON.parse(localStorage.getItem(REMAINING_KEY)) || [];
 }
 
-function setRemainingItems(items) {
-  localStorage.setItem(REMAINING_KEY, JSON.stringify(items));
+function setPickCount(count) {
+  localStorage.setItem(COUNT_KEY, count.toString());
 }
 
 function getPickCount() {
   return parseInt(localStorage.getItem(COUNT_KEY), 10) || 0;
 }
 
-function setPickCount(count) {
-  localStorage.setItem(COUNT_KEY, count.toString());
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 /***********************
- * PICK RANDOM ITEM
+ * PRESET HANDLERS
  ***********************/
-function pickRandom() {
-  let remaining = getRemainingItems();
-  
-  // Animation reset and Remove previous color classes
-  resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
-  void resultEl.offsetWidth;
-  
-  if (remaining.length === 0) {
-    resultEl.innerText = "All roles picked 🎉";
-	resultEl.classList.add("other");
-    resultEl.style.opacity = 1;
+function loadPreset(listKey) {
+  const list = PRESET_LISTS[listKey];
+  if (!list) return;
+
+  listInput.value = list.join("\n");
+  listInput.classList.remove("hidden");
+
+  setRemainingItems([...list]);
+  setPickCount(0);
+
+  resultEl.innerText = "";
+  itemCountEl.innerText = `Number of Roles: ${list.length}`;
+
+  // Hide presets
+  const grid = document.getElementById("presetGrid");
+  const toggleBtn = document.querySelector(".toggle-presets");
+  grid.classList.add("hidden");
+  toggleBtn.innerText = "Load X-Player Scenario ▾";
+}
+
+/***********************
+ * START PICKING
+ ***********************/
+function startPicking() {
+  const list = listInput.value
+    .split("\n")
+    .map(x => x.trim())
+    .filter(x => x.length > 0);
+
+  if (list.length === 0) {
+    alert("List is empty");
     return;
   }
 
-  const count = getPickCount() + 1;
+  localStorage.setItem(ACTIVE_KEY, JSON.stringify(list));
+  localStorage.setItem(ORIGINAL_KEY, JSON.stringify(list));
+  localStorage.setItem(REMAINING_KEY, JSON.stringify(shuffleArray([...list])));
+  localStorage.setItem(COUNT_KEY, "0");
+
+  inputSection.style.display = "none";
+  presetsSection.style.display = "none";
+  pickSection.style.display = "block";
+
+  resultEl.textContent = "";
+  pickButton.innerText = "Next";
+  itemCountEl.innerText = "";
+  listInput.classList.add("hidden");
+}
+
+/***********************
+ * PICK NEXT
+ ***********************/
+function pickNext() {
+  let remaining = getRemainingItems();
+  let count = getPickCount();
+
+  if (remaining.length === 0) {
+    resultEl.innerText = "All roles picked 🎉";
+    return;
+  }
+  
+  resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
+  void resultEl.offsetWidth;
+
+  count++;
+  const selected = remaining.shift();
   setPickCount(count);
-
-  const index = Math.floor(Math.random() * remaining.length);
-  const selected = remaining[index];
-
-  remaining.splice(index, 1);
   setRemainingItems(remaining);
 
-  
-  
+  // Reset classes
+  resultEl.className = "result animate";
 
-  // Determine color
-  const selectedTrimmed = selected.trim();
+  // Set text
+  resultEl.innerText = `Seat ${count} \n ${selected}`;
 
-  if (selectedTrimmed.includes("مافیا")) {
-	resultEl.classList.add("mafia");
-  } else if (selectedTrimmed.includes("مستقل")) {
-	resultEl.classList.add("independent");
-  } else if (selectedTrimmed.includes("شهروند")) {
+  // Color logic
+  const s = selected.trim();
+  if (s.includes("مافیا")) {
+    resultEl.classList.add("mafia");
+  } else if (s.includes("مستقل")) {
+    resultEl.classList.add("independent");
+  } else if (s.includes("شهروند")) {
     resultEl.classList.add("citizen");
   } else {
-    resultEl.classList.add("other");
+	resultEl.classList.add("other");
   }
 
-
-  resultEl.innerText = `Seat ${count} \n ${selected}`;
+  // Animate
+  void resultEl.offsetWidth;
   resultEl.classList.add("animate");
-
-  // Rename button after first pick
-  if (count === 1) {
-    pickButton.innerText = "Next";
-    itemCountEl.innerText = ""; // hide count after start
-	listInput.classList.add("hidden"); // 👈 hide textarea
-	document.getElementById("presetsSection").classList.add("hidden");
-
-  }
 }
 
 /***********************
  * RESTART
  ***********************/
 function restartApp() {
-  setRemainingItems([...DEFAULT_LIST]);
+  const original = JSON.parse(localStorage.getItem(ORIGINAL_KEY) || JSON.stringify([...DEFAULT_LIST]));
+  setRemainingItems([...original]);
   setPickCount(0);
 
-  listInput.value = DEFAULT_LIST.join("\n");
-  listInput.classList.remove("hidden"); // 👈 show textarea
-  document.getElementById("presetsSection").classList.remove("hidden"); // 👈 show presets
+  listInput.value = original.join("\n");
+  listInput.classList.remove("hidden");
+  presetsSection.classList.remove("hidden");
 
   resultEl.innerText = "";
   pickButton.innerText = "Start Picking";
-  itemCountEl.innerText = `Number of Roles: ${DEFAULT_LIST.length}`;
-}
+  itemCountEl.innerText = `Number of Roles: ${original.length}`;
 
+  inputSection.style.display = "block";
+  pickSection.style.display = "none";
+  presetsSection.style.display = "block"
+}
 
 /***********************
  * CLEAR LIST
@@ -218,23 +189,19 @@ function clearList() {
   setPickCount(0);
   resultEl.innerText = "";
   pickButton.innerText = "Start Picking";
-  itemCountEl.innerText = "Number of Roles: 0";
-  listInput.classList.remove("hidden"); // 👈 show textarea
-  document.getElementById("presetsSection").classList.remove("hidden"); // 👈 show presets
+  itemCountEl.innerText = `Number of Roles: 0`;
+  listInput.classList.remove("hidden");
+  presetsSection.classList.remove("hidden");
 }
 
 /***********************
- * UPDATE LIST FROM TEXTAREA
+ * TOGGLE PRESETS
  ***********************/
-function updateListFromInput() {
-  const items = listInput.value
-    .split("\n")
-    .map(i => i.trim())
-    .filter(i => i.length > 0);
-
-  setRemainingItems(items);
-  setPickCount(0);
-  pickButton.innerText = "Start Picking";
-  resultEl.innerText = "";
-  itemCountEl.innerText = `Number of Roles: ${items.length}`;
+function togglePresets() {
+  const grid = document.getElementById("presetGrid");
+  const toggleBtn = document.querySelector(".toggle-presets");
+  grid.classList.toggle("hidden");
+  toggleBtn.innerText = grid.classList.contains("hidden")
+    ? "Load X-Player Scenario ▾"
+    : "Load X-Player Scenario ▴";
 }

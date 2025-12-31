@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Random Picker</title>
+  <title>Mafia Role Randomizer</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -17,7 +17,6 @@
 	
 	<!-- Buttons to load predefined lists-->
 	<div id="presetsSection" class="presets">
-
 	  <button class="toggle-presets" onclick="togglePresets()">
 		Load X-Player Scenario ▾
 	  </button>
@@ -30,35 +29,30 @@
 		<button onclick="loadPreset('list12')">12 Players</button>
 		<button onclick="loadPreset('list13')">13 Players</button>
 	  </div>
-
 	</div>
 
-
-    <!-- Editable list -->
-    <textarea
-      id="listInput"
-      placeholder="One item per line"
-      oninput="updateListFromInput()"
-    ></textarea>
-	
-	<!-- Item count (shown only initially) -->
-    <div id="itemCount" class="item-count"></div>
-
-    <!-- Buttons -->
-    <div class="buttons">
-      <button id="pickButton" onclick="pickRandom()">Start Picking</button>
-      <button onclick="restartApp()">Restart</button>
-      <button onclick="clearList()">Clear</button>
+	<!-- INPUT SECTION -->
+    <div id="inputSection">
+      <textarea 
+		id="listInput"
+		placeholder="One item per line"
+	  ></textarea>
+	  
+	  <div id="itemCount" class="item-count"></div>
+	  
+      <button id="startButton" onclick="startPicking()">Start Picking</button>
+      <button onclick="clearList()" style="background-color:#ff3b30">Clear</button>
     </div>
-	
-	
 
-    <!-- Result -->
-    <div id="result" class="result"></div>
+    <!-- PICKING SECTION -->
+    <div id="pickSection">
+      <div id="result" class="result"></div>
+      <button id="pickButton" onclick="pickNext()" style="background-color:#34c759">Next</button>
+      <button onclick="restartApp()" style="background-color:#ff3b30">Restart</button>
+    </div>
 
   </div>
 
-  <!-- ✅ SCRIPT MUST BE AT THE BOTTOM -->
   <script src="script.js"></script>
 </body>
 </html>

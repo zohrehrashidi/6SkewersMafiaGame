@@ -59,21 +59,21 @@ button {
   color: white;
 }
 
-button:nth-child(2) {
-  background: #34c759;
-}
+/* button:nth-child(2) { */
+  /* background: #34c759; */
+/* } */
 
-button:nth-child(3) {
-  background: #ff3b30;
-}
+/* button:nth-child(3) { */
+  /* background: #ff3b30; */
+/* } */
 
 .result {
   margin-top: 20px;
+  margin-bottom: 20px;
   font-size: 22px;
   font-weight: bold;
   min-height: 32px;
   opacity: 0;
-  color: darkgreen;
 }
 
 .result.mafia {
@@ -135,6 +135,13 @@ button:nth-child(3) {
 }
 
 .hidden {
+  display: none;
+}
+
+/* ========= PICKING SECTION ========= */
+#pickSection {
+  max-width: 420px;
+  margin: 24px auto;
   display: none;
 }
 
