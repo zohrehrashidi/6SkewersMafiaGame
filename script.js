@@ -122,9 +122,6 @@ function startPicking() {
 function pickNext() {
   let remaining = getRemainingItems();
   let count = getPickCount();
-  
-  // resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
-  // void resultEl.offsetWidth;
 
   if (remaining.length === 0) {
 	resultEl.classList.add("other");
