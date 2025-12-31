@@ -128,8 +128,8 @@ function pickNext() {
     return;
   }
   
-  resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
-  void resultEl.offsetWidth;
+  // resultEl.classList.remove("animate", "mafia", "independent", "citizen", "other");
+  // void resultEl.offsetWidth;
 
   count++;
   const selected = remaining.shift();
