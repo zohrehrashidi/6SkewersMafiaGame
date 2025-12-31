@@ -205,3 +205,10 @@ function togglePresets() {
     ? "Load X-Player Scenario ▾"
     : "Load X-Player Scenario ▴";
 }
+
+window.startPicking = startPicking;
+window.pickNext = pickNext;
+window.restartApp = restartApp;
+window.clearList = clearList;
+window.togglePresets = togglePresets;
+window.loadPreset = loadPreset;
